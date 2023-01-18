@@ -1,0 +1,49 @@
+import random
+import string
+from time import sleep, perf_counter
+import sys
+
+def bruteforce(password):
+    
+    print("Script starting")
+    start_time = perf_counter()
+    print(f'Running\n')
+
+    t = 0
+    
+    #Common Password Check
+
+    print(f'Checking for common passwords')
+
+    commonpass = open(r'C:\Users\jack_\OneDrive\Desktop\Python Library\Brute Force\common_passwords.txt')
+    commonpass = commonpass.readlines()
+
+    for x in range(0,len(commonpass)):
+        if commonpass[x] == password+"\n":
+            t = t + 1
+            print(f'Pass found: {commonpass[x]}')
+            end_time = perf_counter()
+            print(f'{end_time - start_time:0.2f} seconds to complete')
+            return
+    print(f'No common passwords found\n')
+            
+    #Randomised Brute Force Check    
+    
+    print("Starting Random Checking")
+
+    x = 0
+    y = len(password)
+
+    while x==0:
+        
+        N = y
+        res = ''.join(random.choices(string.ascii_lowercase + string.ascii_uppercase + string.digits, k=N))
+        t = t + 1
+        if res == password:
+            print(f'Pass found: {res}\n')
+            print(f'{t} random passwords were tested\n')
+            x=1
+            end_time = perf_counter()
+            print(f'{end_time - start_time:0.2f} seconds to complete')
+
+bruteforce(input("please input a password"))
